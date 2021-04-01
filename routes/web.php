@@ -13,7 +13,8 @@
 */
 
 $router->group([
-    'prefix' => '/api/v1/cron'
+    'prefix' => '/api/v1/cron',
+    'middleware' => 'auth.basic:api,id'
 ], function () use ($router) {
     $router->get('/', 'Api\CronController@index');
     $router->get('/{id}', 'Api\CronController@show');

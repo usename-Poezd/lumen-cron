@@ -62,6 +62,15 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('auth');
+$app->configure('database');
+$app->configure('session');
+
+$app->singleton('cookie', function () use ($app) {
+    return $app->loadComponent('session', 'Illuminate\Cookie\CookieServiceProvider', 'cookie');
+});
+
+$app->bind('Illuminate\Contracts\Cookie\QueueingFactory', 'cookie');
 
 /*
 |--------------------------------------------------------------------------
@@ -74,9 +83,9 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->routeMiddleware([
+    'auth.basic' => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+]);
 
 
 /*
@@ -93,6 +102,8 @@ $app->configure('app');
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+$app->register(Illuminate\Session\SessionServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -103,8 +114,6 @@ $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
-$app->configure('database');
 
 
 $app->router->group([
