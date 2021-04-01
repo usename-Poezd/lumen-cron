@@ -2,6 +2,11 @@
 
 API has 4 routes for cron management
 
+## Server required
+- php 7.3
+- mysql or posgresql or mariadb
+- cron
+
 ## Installation
 
 All we have to do is
@@ -13,6 +18,10 @@ All we have to do is
 - Add `* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1` to your crontab
 
 ## API Routes
+
+All routse require Authorization header with basic authorization
+Learn more: https://tools.ietf.org/html/rfc7617
+
 ### `GET /api/v1/cron`
 ~~~~~~
 Response will be:
