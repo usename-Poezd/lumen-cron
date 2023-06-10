@@ -1,4 +1,4 @@
-# Lumen API
+# Lumen API for CRON managing
 
 API has 4 routes for cron management
 
